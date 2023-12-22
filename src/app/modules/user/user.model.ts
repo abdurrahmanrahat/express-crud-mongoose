@@ -19,6 +19,9 @@ const userSchema = new Schema<TUser>({
     city: { type: String, required: true },
     country: { type: String, required: true },
   },
+  orders: {
+    type: [Object],
+  },
 });
 
 // make model

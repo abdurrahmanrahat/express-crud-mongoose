@@ -1,4 +1,4 @@
-import { TUser } from "./user.interface";
+import { TOrder, TUser } from "./user.interface";
 import { User } from "./user.model";
 
 // post
@@ -35,8 +35,37 @@ const updateUserIntoDb = async (userId: number, updatedUser: TUser) => {
 };
 
 // delete by: userId
-const deleteUser = async (userId: number) => {
+const deleteUserIntoDb = async (userId: number) => {
   const result = await User.deleteOne({ userId });
+  return result;
+};
+
+// update for add product
+const addProductByUpdateUserIntoDb = async (
+  userId: number,
+  newProduct: TOrder
+) => {
+  const matchedUser = await User.findOne({ userId });
+  if (!matchedUser) {
+    throw new Error("User not found.");
+  }
+
+  let updatedOrders;
+  if (matchedUser?.orders && matchedUser.orders.length > 0) {
+    updatedOrders = [...matchedUser.orders, newProduct];
+  } else {
+    updatedOrders = [newProduct];
+  }
+
+  const result = await User.findOneAndUpdate(
+    { userId },
+    {
+      $set: { orders: updatedOrders },
+    },
+    {
+      new: true,
+    }
+  );
   return result;
 };
 
@@ -45,5 +74,6 @@ export const UserServices = {
   getAllUsersFromDb,
   getUserFromDb,
   updateUserIntoDb,
-  deleteUser,
+  deleteUserIntoDb,
+  addProductByUpdateUserIntoDb,
 };
