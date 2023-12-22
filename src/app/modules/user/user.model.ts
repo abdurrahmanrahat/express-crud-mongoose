@@ -3,8 +3,8 @@ import { TUser } from "./user.interface";
 
 // main user schema
 const userSchema = new Schema<TUser>({
-  userId: { type: Number, required: true },
-  username: { type: String, required: true },
+  userId: { type: Number, required: true, unique: true },
+  username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   fullName: {
     firstName: { type: String, required: true },
