@@ -69,6 +69,13 @@ const addProductByUpdateUserIntoDb = async (
   return result;
 };
 
+// retrieve order /:userId
+const retrieveUserOrdersFromDb = async (userId: number) => {
+  const result = await User.findOne({ userId });
+  const ordersResult = result?.orders;
+  return ordersResult;
+};
+
 export const UserServices = {
   createUserIntoDb,
   getAllUsersFromDb,
@@ -76,4 +83,5 @@ export const UserServices = {
   updateUserIntoDb,
   deleteUserIntoDb,
   addProductByUpdateUserIntoDb,
+  retrieveUserOrdersFromDb,
 };

@@ -21,4 +21,7 @@ router.delete("/:userId", UserControllers.deleteUser);
 // update (Add New Product in Order)
 router.put("/:userId/orders", UserControllers.addProductByUpdateUser);
 
+// get route (/:userId) / to retrieve all order
+router.get("/:userId/orders", UserControllers.retrieveUserOrders);
+
 export const UserRoutes = router;
