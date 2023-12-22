@@ -76,6 +76,19 @@ const retrieveUserOrdersFromDb = async (userId: number) => {
   return ordersResult;
 };
 
+// calculate total orders price for a user
+const calculateUserOrdersFromDb = async (userId: number) => {
+  const result = await User.findOne({ userId });
+  const ordersResult = result?.orders;
+
+  let totalPrice = 0;
+  ordersResult?.forEach((item) => {
+    totalPrice = totalPrice + item.price;
+  });
+
+  return totalPrice;
+};
+
 export const UserServices = {
   createUserIntoDb,
   getAllUsersFromDb,
@@ -84,4 +97,5 @@ export const UserServices = {
   deleteUserIntoDb,
   addProductByUpdateUserIntoDb,
   retrieveUserOrdersFromDb,
+  calculateUserOrdersFromDb,
 };
