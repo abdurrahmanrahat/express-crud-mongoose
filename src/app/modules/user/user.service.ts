@@ -28,8 +28,15 @@ const getUserFromDb = async (userId: number) => {
   return result;
 };
 
+// update by: userId
+const updateUserIntoDb = async (userId: number, updatedUser: TUser) => {
+  const result = await User.updateOne({ userId: userId }, updatedUser);
+  return result;
+};
+
 export const UserServices = {
   createUserIntoDb,
   getAllUsersFromDb,
   getUserFromDb,
+  updateUserIntoDb,
 };

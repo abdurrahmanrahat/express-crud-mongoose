@@ -9,7 +9,10 @@ router.post("/", UserControllers.createUser);
 // get route
 router.get("/", UserControllers.getAllUsers);
 
-// :id/get route
+// :userId/get route
 router.get("/:userId", UserControllers.getUser);
+
+// :userId/update route
+router.put("/:userId", UserControllers.updateUser);
 
 export const UserRoutes = router;
