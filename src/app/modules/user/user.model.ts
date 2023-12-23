@@ -35,6 +35,13 @@ userSchema.pre("save", async function (next) {
     user.password,
     Number(config.bcrypt_salt_rounds)
   );
+  next();
+});
+
+// post save middleware/hook- after saving document into db
+userSchema.post("save", function (doc, next) {
+  doc.password = "";
+  next();
 });
 
 // custom instance method
