@@ -1,8 +1,8 @@
 import { Schema, model } from "mongoose";
-import { TUser } from "./user.interface";
+import { TUser, UserMethods, UserModel } from "./user.interface";
 
 // main user schema
-const userSchema = new Schema<TUser>({
+const userSchema = new Schema<TUser, UserModel, UserMethods>({
   userId: { type: Number, required: true, unique: true },
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
@@ -24,5 +24,11 @@ const userSchema = new Schema<TUser>({
   },
 });
 
+// custom instance method
+userSchema.methods.isUserExists = async function (userId: number) {
+  const existingUser = await User.findOne({ userId });
+  return existingUser;
+};
+
 // make model
-export const User = model<TUser>("User", userSchema);
+export const User = model<TUser, UserModel>("User", userSchema);

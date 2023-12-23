@@ -11,10 +11,10 @@ const createUser = async (req: Request, res: Response) => {
       message: "User created successfully!",
       data: result,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({
       success: false,
-      message: "User not found",
+      message: error.message || "User not found",
       error: {
         code: 404,
         description: "User not found!",

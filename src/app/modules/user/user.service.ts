@@ -3,7 +3,14 @@ import { User } from "./user.model";
 
 // post
 const createUserIntoDb = async (userData: TUser) => {
-  const result = await User.create(userData);
+  // const result = await User.create(userData);
+
+  // instance method.
+  const user = new User(userData); // create an instance.
+  if (await user.isUserExists(userData.userId)) {
+    throw new Error("User already exists");
+  }
+  const result = await user.save(); // built in instance method.
   return result;
 };
 

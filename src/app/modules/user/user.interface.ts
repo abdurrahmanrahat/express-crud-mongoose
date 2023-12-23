@@ -1,3 +1,5 @@
+import { Model } from "mongoose";
+
 export type TOrder = {
   productName: string;
   price: number;
@@ -23,3 +25,10 @@ export type TUser = {
   };
   orders?: Array<TOrder>;
 };
+
+// instance method.
+export type UserMethods = {
+  isUserExists(userId: number): Promise<TUser | null>;
+};
+
+export type UserModel = Model<TUser, {}, UserMethods>;
