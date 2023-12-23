@@ -3,5 +3,5 @@
 Use the command. make sure you install the necessary installation package.
 
 ```
-start:dev
+npm run start:dev
 ```
