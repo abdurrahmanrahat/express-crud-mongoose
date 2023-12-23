@@ -1,4 +1,6 @@
+import bcrypt from "bcrypt";
 import { Schema, model } from "mongoose";
+import config from "../../config";
 import { TUser, UserMethods, UserModel } from "./user.interface";
 
 // main user schema
@@ -22,6 +24,17 @@ const userSchema = new Schema<TUser, UserModel, UserMethods>({
   orders: {
     type: [Object],
   },
+});
+
+// pre save middleware/hook- this middleware call before saving any data in db
+userSchema.pre("save", async function (next) {
+  const user = this;
+
+  // hashing the password
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.bcrypt_salt_rounds)
+  );
 });
 
 // custom instance method
